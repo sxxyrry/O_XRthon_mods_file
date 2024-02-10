@@ -7,7 +7,7 @@ class XRthon_main():
         self.var_ = {}
 
     def raisess(self, text, types, code_=1):
-        print(f'{types}: Error: {text}, Status code: {code_}')
+        print(f' > {types}: Error: {text}, Status code: {code_}')
 
     def XRthon_text(self, text_code):
         texts = ''.join(text_code)
@@ -30,12 +30,12 @@ class XRthon_main():
                             time.sleep(0.5)
                             self.raisess('Variable cannot be printed', 'Variable cannot be printed')
                         else:
-                            print(self.var_[text_1], end='')
+                            print(' > ' + self.var_[text_1], end='')
                         if text_1 in self.var_:
-                            print(self.var_[text_1], end='')
+                            print(' > ' + self.var_[text_1], end='')
                         else:
                             if not text_1 == '':
-                                print(v_list_[1], end='')
+                                print(' > ' + v_list_[1], end='')
                         v = input('')
                 elif '{}' in v:
                     vs = set()
@@ -47,7 +47,7 @@ class XRthon_main():
                             self.var_.update({name : vs})
                 self.var_.update({name : v})
                 time.sleep(0.5)
-                print('A variable has been created')
+                print(' > A variable has been created')
             elif ':' in text:
                 list_ = text.split(':')
                 f = list_[0]
@@ -61,12 +61,12 @@ class XRthon_main():
                             time.sleep(0.5)
                             self.raisess('Variable cannot be printed', 'Variable cannot be printed')
                         else:
-                            print(self.var_[text_1])
+                            print(' > ' + self.var_[text_1])
                         if text_1 in self.var_:
-                            print(self.var_[text_1])
+                            print(' > ' + self.var_[text_1])
                         else:
                             if not text_1 == '':
-                                print(list_[1])
+                                print(' > ' + list_[1])
                 elif f == 'input':
                     text_2 = list_[1].split('\'')
                     for text_1 in text_2:
@@ -77,12 +77,12 @@ class XRthon_main():
                             time.sleep(0.5)
                             self.raisess('Variable cannot be printed', 'Variable cannot be printed')
                         else:
-                            print(self.var_[text_1], end='')
+                            print(' > ' + self.var_[text_1], end='')
                         if text_1 in self.var_:
-                            print(self.var_[text_1], end='')
+                            print(' > ' + self.var_[text_1], end='')
                         else:
                             if not text_1 == '':
-                                print(self.var_[1], end='')
+                                print(' > ' + self.var_[1], end='')
                 elif f == 'init':
                     time.sleep(0.5)
                     self.raisess('Failed to initialize', 'Failed to initialize')
@@ -129,10 +129,10 @@ class XRthon_main():
                         text_2 = v_list_[1].split('\'')
                         for text_1 in text_2:
                             if text_1 in var:
-                                print(var[text_1], end='')
+                                print(' > ' + var[text_1], end='')
                             else:
                                 if not text_1 == '':
-                                    print(v_list_[1], end='')
+                                    print(' > ' + v_list_[1], end='')
                             v = input('')
                 elif '{' in v and '}' in v:
                     vs = set( )
@@ -156,12 +156,12 @@ class XRthon_main():
                                 time.sleep(0.5)
                                 self.raisess('\'init\' undefined, special variable cannot be printed', '\'init\' undefined')
                             else:
-                                print(var[text_1])
+                                print(' > ' + var[text_1])
                         elif text_1 in var:
-                            print(var[text_1])
+                            print(' > ' + var[text_1])
                         else:
                             if not text_1 == '':
-                                print(list_[1])
+                                print(' > ' + list_[1])
                 elif f == 'input':
                     text_2 = list_[1].split('\'')
                     for text_1 in text_2:
@@ -170,15 +170,15 @@ class XRthon_main():
                                 time.sleep(0.5)
                                 self.raisess('\'init\' undefined, special variable cannot be printed', '\'init\' undefined')
                             else:
-                                print(var[text_1], end='')
+                                print(' > ' + var[text_1], end='')
                         elif text_1 in var:
-                            print(var[text_1], end='')
+                            print(' > ' + var[text_1], end='')
                         else:
                             if not text_1 == '':
                                 print(list_[1], end='')
                         input('')
                 elif f == 'return':
-                    print('The program has exited')
+                    print(' > The program has exited')
                     return
                 elif f == 'raise':
                     text_2 = list_[1].split(',')
