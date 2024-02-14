@@ -4,8 +4,6 @@ from . import XRthon_main
 def mains():
     folder = pathlib.Path(__file__).parent.resolve()
 
-    var_ = {}
-
     pycache = os.path.join(folder, './__pycache__')
     if os.path.exists(pycache):
         shutil.rmtree(pycache)
@@ -18,7 +16,7 @@ def mains():
  >     ##################
  >     ''')
 
-    print(' > Now edition: 0.1 BETA __0.0.1__')
+    print(' > Now edition: 0.1 BETA __0.0.2__')
     print(' > Note that the \'BETA\' in the version number is the major version number 0 (beta version)')
     print(' > For example, \'XRthon 0.1 BETA __0.0.1__ V\' means that the XRthon version is \'0.0.1_0.0.1\'')
 

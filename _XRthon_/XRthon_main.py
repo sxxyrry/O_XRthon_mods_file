@@ -6,8 +6,30 @@ class XRthon_main():
     def __init__(self):
         self.var_ = {}
 
-    def raisess(self, text, types, code_=1):
-        print(f' > {types}: Error: {text}, Status code: {code_}')
+    def raisess(self, text: str, types: str, code: str, file_: str, line= 0, code_=1):
+        Error_table = {
+            'VariableError',
+            'InitError',
+            'CodeError',
+            'Error_typeError',
+            'NameError',
+        }
+        if types in Error_table:
+            if file_ == 'text':
+                print(' > Backtrack (last call):')
+                print(f' >   File "{folder}\\main.py"')
+                print(f' >     {code}')
+                print(f' >     {types}: Error: {text}, Status code: {code_}')
+                raise SystemExit()
+            else:
+                file_ = os.path.join(file_)
+                print(' > Backtrack (last call):')
+                print(f' >   File "{file_}", line {line}')
+                print(f' >     {code}')
+                print(f' >     {types}: Error: {text}, Status code: {code_}')
+                raise SystemExit()
+        else:
+            self.raisess(f'name {types} is not defined', 'NameError', code, file_)
 
     def XRthon_text(self, text_code):
         texts = ''.join(text_code)
@@ -25,10 +47,10 @@ class XRthon_main():
                     for text_1 in text_2:
                         if  text_1 == '__name__' or text_1 ==  '__path__' or text_1 == '__init__' or text_1 == '__file__' or text_1 == '__package__':
                             time.sleep(0.5)
-                            self.raisess('Variable cannot be printed', 'Variable cannot be printed')
+                            self.raisess('Variable can\'t be printed', 'VariableError', text, 'text')
                         if not text_1 in self.var_:
                             time.sleep(0.5)
-                            self.raisess('Variable cannot be printed', 'Variable cannot be printed')
+                            self.raisess('Variable can\'ot be printed', 'VariableError', text, 'text')
                         else:
                             print(' > ' + self.var_[text_1], end='')
                         if text_1 in self.var_:
@@ -56,10 +78,10 @@ class XRthon_main():
                     for text_1 in text_2:
                         if  text_1 == '__name__' or text_1 == '__path__' or text_1 == '__init__' or text_1 == '__file__' or text_1 == '__package__':
                             time.sleep(0.5)
-                            self.raisess('Variable cannot be printed', 'Variable cannot be printed')
+                            self.raisess('Variable can\'t be printed', 'VariableError', text, 'text')
                         if not text_1 in self.var_:
                             time.sleep(0.5)
-                            self.raisess('Variable cannot be printed', 'Variable cannot be printed')
+                            self.raisess('Variable can\'t be printed', 'VariableError', text, 'text') 
                         else:
                             print(' > ' + self.var_[text_1])
                         if text_1 in self.var_:
@@ -72,10 +94,10 @@ class XRthon_main():
                     for text_1 in text_2:
                         if  text_1 == '__name__' or text_1 ==  '__path__' or text_1 == '__init__' or text_1 == '__file__' or text_1 == '__package__':
                             time.sleep(0.5)
-                            self.raisess('Variable cannot be printed', 'Variable cannot be printed')
+                            self.raisess('Variable can\'t be printed', 'VariableError', text, 'text')
                         if not text_1 in self.var_:
                             time.sleep(0.5)
-                            self.raisess('Variable cannot be printed', 'Variable cannot be printed')
+                            self.raisess('Variable can\'t be printed', 'VariableError', text, 'text')
                         else:
                             print(' > ' + self.var_[text_1], end='')
                         if text_1 in self.var_:
@@ -85,26 +107,45 @@ class XRthon_main():
                                 print(' > ' + self.var_[1], end='')
                 elif f == 'init':
                     time.sleep(0.5)
-                    self.raisess('Failed to initialize', 'Failed to initialize')
+                    self.raisess('Failed to initialize', 'InitError', text, 'text')
+                elif f == 'raise':
+                    text_2 = list_[1].split(',')
+                    if len(text_2) == 2:
+                        self.raisess(text_2[0], text_2[1], text, 'text')
+                    elif len(text_2) == 3:
+                        try:
+                            self.raisess(text_2[0], text_2[1], text, 'text', code_=int(text_2[2]))
+                        except SystemExit:
+                            pass
+                        except:
+                            time.sleep(0.5)
+                            self.raisess(f'code {text} is ERROR', 'CodeError', text, 'text')  
+                    else:
+                        time.sleep(0.5)
+                        self.raisess(f'code {text} is ERROR', 'CodeError', text, 'text')
+                else:
+                    time.sleep(0.5)
+                    self.raisess(f'name {f} is not defined', 'NameError', text, 'text')
             else:
                 time.sleep(0.5)
-                self.raisess(f'unknown code, code: {text}', 'unknown code')
+                self.raisess(f'name {f} is not defined', 'NameError', text, 'text')
+        else:
+            time.sleep(0.5)
+            self.raisess(f'name {text} is not defined', 'NameError', text, 'text')
 
     def XRthon_file(self, file, path=os.path.join(folder, './test_files/TEST.XRn')):
         var = {}
-        run_codes_ = []
         texts = ''.join(file.read())
         file_now_line = 0
         list_1 = texts.split('\n')
         for text in list_1:
-            code_isE = False
             file_now_line += 1
             if file_now_line == 1:
                 if 'init' in text:
                     list_ = text.split(':')
                     if '#' in list_[0]:
                         time.sleep(0.5)
-                        self.raisess('\'init\'undefined', '\'init\'undefined')
+                        self.raisess('init undefined', 'InitError', text, path, file_now_line)
                         continue
                     paths_ = ''.join(path)
                     path_ = paths_.split('\\')
@@ -115,7 +156,7 @@ class XRthon_main():
                     continue
                 else:
                     time.sleep(0.5)
-                    self.raisess('\'init\'undefined', '\'init\'undefined')
+                    self.raisess('init undefined', 'InitError', text, path, file_now_line)
                     continue
             if '#' in text:
                 continue
@@ -154,7 +195,7 @@ class XRthon_main():
                         if  text_1 == '__name__' or text_1 == '__path__' or text_1 == '__init__' or text_1 == '__file__' or text_1 == '__package__':
                             if not text_1 in var:
                                 time.sleep(0.5)
-                                self.raisess('\'init\' undefined, special variable cannot be printed', '\'init\' undefined')
+                                self.raisess('init undefined, special variable cannot be printed', 'InitError', text, path, file_now_line)
                             else:
                                 print(' > ' + var[text_1])
                         elif text_1 in var:
@@ -168,7 +209,7 @@ class XRthon_main():
                         if  text_1 == '__name__' or text_1 ==  '__path__' or text_1 == '__init__' or text_1 == '__file__' or text_1 == '__package__':
                             if not text_1 in var:
                                 time.sleep(0.5)
-                                self.raisess('\'init\' undefined, special variable cannot be printed', '\'init\' undefined')
+                                self.raisess('init undefined, special variable cannot be printed', 'InitError', text, path, file_now_line)
                             else:
                                 print(' > ' + var[text_1], end='')
                         elif text_1 in var:
@@ -183,22 +224,23 @@ class XRthon_main():
                 elif f == 'raise':
                     text_2 = list_[1].split(',')
                     if len(text_2) == 2:
-                        self.raisess(text_2[0], text_2[1])
-                        return
-                    if len(text_2) == 3:
-                        self.raisess(text_2[0], text[1], int(text_2[2]))
-                        return
+                        self.raisess(text_2[0], text_2[1], text, path, file_now_line)
+                    elif len(text_2) == 3:
+                        try:
+                            self.raisess(text_2[0], text_2[1], text, path, file_now_line, int(text_2[2]))
+                        except SystemExit:
+                            pass
+                        except:
+                            time.sleep(0.5)
+                            self.raisess(f'code {text} is ERROR', 'CodeError', text, path, file_now_line)
+                    else:
+                        time.sleep(0.5)
+                        self.raisess(f'code {text} is ERROR', 'CodeError', text, path, file_now_line)
                 else:
                     time.sleep(0.5)
-                    code_isE = True
-                    self.raisess(f'Unknown code, code: {text}', 'unknown code')
+                    self.raisess(f'name {f} is not defined', 'NameError', text, path, file_now_line)
             else:
                 time.sleep(0.5)
-                code_isE = True
-                self.raisess(f'Unknown code, code: {text}', 'unknown code')
-            if code_isE == True:
-                pass
-            elif code_isE == False:
-                run_codes_.append(text)
+                self.raisess(f'name {text} is not defined', 'NameError', text, path, file_now_line)
 
 _XRthon_main_ = XRthon_main()
