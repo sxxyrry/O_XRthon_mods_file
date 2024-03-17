@@ -59,9 +59,9 @@ class XRthon_main():
                             if not text_1 == '':
                                 print(' > ' + v_list_[1], end='')
                         v = input('')
-                elif '{}' in v:
-                    vs = set()
-                    v_list_ = v.split('{}')
+                elif '{' in v and '}' in v:
+                    vs = set( )
+                    v_list_ = v.split('{')[1].split('}')
                     for vars in v_list_:
                         vars_list_ = vars.split(',')
                         for vars_ in vars_list_:
@@ -123,6 +123,14 @@ class XRthon_main():
                     else:
                         time.sleep(0.5)
                         self.raisess(f'code {text} is ERROR', 'CodeError', text, 'text')
+                elif f == 'time':
+                    text_2 = list_[1]
+                    try:
+                        sleep = int(text_2)
+                    except:
+                        time.sleep(0.5)
+                        self.raisess(f'code {text} is ERROR', 'CodeError', text, 'text')
+                    time.sleep(sleep)
                 else:
                     time.sleep(0.5)
                     self.raisess(f'name {f} is not defined', 'NameError', text, 'text')
@@ -236,6 +244,14 @@ class XRthon_main():
                     else:
                         time.sleep(0.5)
                         self.raisess(f'code {text} is ERROR', 'CodeError', text, path, file_now_line)
+                elif f == 'time':
+                    text_2 = list_[1]
+                    try:
+                        sleep = int(text_2)
+                    except:
+                        time.sleep(0.5)
+                        self.raisess(f'code {text} is ERROR', 'CodeError', text, path, file_now_line   )
+                    time.sleep(sleep)
                 else:
                     time.sleep(0.5)
                     self.raisess(f'name {f} is not defined', 'NameError', text, path, file_now_line)
