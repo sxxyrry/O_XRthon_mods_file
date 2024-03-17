@@ -1,0 +1,26 @@
+init:XRthon_test
+# init:XRthon_test Start (Initialize)
+# This is a comment
+print:Hello world.
+# print:Hello world. Print "Hello world."
+a=This is "a"
+# a=This is "a" Assignment (variable)
+print:'a'
+# print:'a' prints variable 'a'
+b=input:This is "b" input：
+# b=input:This is "b" input: Assign value (variable) (get user input)
+print:'b'
+# print:'b' prints variable 'b'
+c={This,is,"c"}
+print:'c'
+print:'__name__'
+print:'__path__'
+print:'__init__'
+print:'__file__'
+print:'__package__'
+# print:'__name__' , print:'__path__' , print:'__init__' , print:'__file__' , print:'__package__' print special variables
+# raise:a,NameError
+# raise:a,NameError,123
+time:1
+# time:1 sleep 1s
+return:
